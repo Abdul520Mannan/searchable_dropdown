@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:searable_dropdown/searable_dropdown.dart';
+import 'package:searchable_dropdown/searchable_dropdown.dart';
 
 class TestItem {
   final String name;

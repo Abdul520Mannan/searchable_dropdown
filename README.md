@@ -18,7 +18,7 @@ Add the package to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  searable_dropdown: ^1.0.0
+  searchable_dropdown: ^1.0.0
 ```
 
 Then run:
@@ -32,6 +32,7 @@ flutter pub get
 ### Single Select
 
 ```dart
+import 'package:searchable_dropdown/searchable_dropdown.dart';
 CustomSearchDropdownWidget<String>(
   itemsList: ['Apple', 'Banana', 'Cherry'],
   onChange: (value) => print(value),
@@ -50,8 +51,6 @@ CustomMultiSearchDropdownWidget<User>(
   headerBuilder: (context, items, enabled) => Text(items.isEmpty ? 'Select Users' : items.map((e) => e.name).join(', ')),
   listItemBuilder: (context, item, isSelected) => Text(item.name),
 )
-```
-
 ```
 
 ## Additional information
