@@ -1,7 +1,12 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 
+/// A customizable searchable dropdown widget for single-item selection.
+///
+/// This widget provides a searchable list of items that can be filtered locally
+/// or via a server-side search callback.
 class CustomSearchDropdownWidget<T> extends StatefulWidget {
+  /// Creates a [CustomSearchDropdownWidget].
   const CustomSearchDropdownWidget({
     super.key,
     required this.onChange,
@@ -16,15 +21,36 @@ class CustomSearchDropdownWidget<T> extends StatefulWidget {
     this.itemToString,
   });
 
+  /// Optional function to convert an item to a string for filtering.
+  /// If not provided, `item.toString()` is used.
   final String Function(T item)? itemToString;
+
+  /// Callback function called when an item is selected.
   final void Function(T value) onChange;
+
+  /// The list of items to display in the dropdown.
   final List<T> itemsList;
+
+  /// Background color of the dropdown search panel.
   final Color backgroundColor;
+
+  /// Optional callback for server-side search.
+  /// If provided, local filtering is disabled.
   final void Function(String query)? onSearch;
+
+  /// Builder for individual list items in the dropdown.
   final Widget Function(BuildContext context, T item, bool isSelected) listItemBuilder;
+
+  /// Builder for the collapsed dropdown header (the button).
   final Widget Function(BuildContext context, T? selectedItem, bool enabled) headerBuilder;
+
+  /// The currently selected item, if any.
   final T? selectedItem;
+
+  /// Indicates whether a search operation is in progress.
   final bool isLoading;
+
+  /// Custom decoration for the search text field.
   final InputDecoration? searchFieldDecoration;
 
   @override

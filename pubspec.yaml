@@ -1,6 +1,6 @@
 name: am_searchable_dropdown
 description: A highly customizable searchable dropdown for Flutter, supporting single-select, multi-select with checkboxes, and radio-select. Supports local and server-side filtering.
-version: 1.0.0
+version: 1.0.1
 homepage: https://github.com/Abdul520Mannan/searchable_dropdown
 repository: https://github.com/Abdul520Mannan/searchable_dropdown
 issue_tracker: https://github.com/Abdul520Mannan/searchable_dropdown/issues

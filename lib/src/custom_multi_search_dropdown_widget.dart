@@ -1,7 +1,12 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 
+/// A customizable searchable dropdown widget for multi-item selection.
+///
+/// This widget provides a searchable list of items with checkboxes for multiple selection.
+/// It supports both local and server-side filtering.
 class CustomMultiSearchDropdownWidget<T> extends StatefulWidget {
+  /// Creates a [CustomMultiSearchDropdownWidget].
   const CustomMultiSearchDropdownWidget({
     super.key,
     required this.onChanged,
@@ -16,15 +21,36 @@ class CustomMultiSearchDropdownWidget<T> extends StatefulWidget {
     this.itemToString,
   });
 
+  /// Optional function to convert an item to a string for filtering.
+  /// If not provided, `item.toString()` is used.
   final String Function(T item)? itemToString;
+
+  /// Callback function called when the list of selected items changes.
   final void Function(List<T> values) onChanged;
+
+  /// The list of items to display in the dropdown.
   final List<T> itemsList;
+
+  /// Background color of the dropdown search panel.
   final Color backgroundColor;
+
+  /// Optional callback for server-side search.
+  /// If provided, local filtering is disabled.
   final void Function(String query)? onSearch;
+
+  /// Builder for individual list items in the dropdown.
   final Widget Function(BuildContext context, T item, bool isSelected) listItemBuilder;
+
+  /// Builder for the collapsed dropdown header (the button).
   final Widget Function(BuildContext context, List<T> selectedItems, bool enabled) headerBuilder;
+
+  /// The list of currently selected items.
   final List<T> selectedItems;
+
+  /// Indicates whether a search operation is in progress.
   final bool isLoading;
+
+  /// Custom decoration for the search text field.
   final InputDecoration? searchFieldDecoration;
 
   @override

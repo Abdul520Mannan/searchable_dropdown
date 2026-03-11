@@ -1,3 +1,7 @@
+## 1.0.1
+
+*   Improved pub.dev score by adding comprehensive API documentation (dartdoc comments).
+
 ## 1.0.0
 
 *   Initial release.
