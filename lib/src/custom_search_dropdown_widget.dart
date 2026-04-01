@@ -26,7 +26,15 @@ class CustomSearchDropdownWidget<T> extends StatefulWidget {
     this.errorBorder,
     this.suffixIcon,
     this.headerPadding,
+    this.isEnabled = true,
+    this.disabledHeaderDecoration,
   });
+
+  /// Whether the dropdown is enabled.
+  final bool isEnabled;
+
+  /// Optional decoration for the dropdown header when disabled.
+  final Decoration? disabledHeaderDecoration;
 
   /// Optional decoration for the dropdown header.
   final Decoration? headerDecoration;
@@ -342,6 +350,14 @@ class _CustomSearchDropdownWidgetState<T> extends State<CustomSearchDropdownWidg
           }
         });
 
+        final effectiveDecoration = widget.isEnabled
+            ? widget.headerDecoration
+            : (widget.disabledHeaderDecoration ??
+                BoxDecoration(
+                  color: Colors.grey[200],
+                  borderRadius: BorderRadius.circular(8),
+                ));
+
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
@@ -353,27 +369,30 @@ class _CustomSearchDropdownWidgetState<T> extends State<CustomSearchDropdownWidg
                 child: Container(
                   decoration: state.hasError
                       ? (widget.errorBorder != null
-                          ? (widget.headerDecoration is BoxDecoration
-                              ? (widget.headerDecoration as BoxDecoration).copyWith(border: widget.errorBorder)
+                          ? (effectiveDecoration is BoxDecoration
+                              ? effectiveDecoration.copyWith(border: widget.errorBorder)
                               : BoxDecoration(border: widget.errorBorder))
-                          : (widget.headerDecoration is BoxDecoration
-                              ? (widget.headerDecoration as BoxDecoration).copyWith(border: Border.all(color: Colors.red))
+                          : (effectiveDecoration is BoxDecoration
+                              ? effectiveDecoration.copyWith(border: Border.all(color: Colors.red))
                               : BoxDecoration(border: Border.all(color: Colors.red))))
-                      : widget.headerDecoration,
+                      : effectiveDecoration,
                   child: InkWell(
                     key: buttonKey,
-                    onTap: _toggleOverLay,
+                    onTap: widget.isEnabled ? _toggleOverLay : null,
                     child: Padding(
                       padding: widget.headerPadding ?? const EdgeInsets.all(16),
                       child: Row(
                         children: [
-                          Expanded(child: widget.headerBuilder(context, widget.selectedItem, true)),
+                          Expanded(child: widget.headerBuilder(context, widget.selectedItem, widget.isEnabled)),
                           const SizedBox(width: 8),
-                          widget.suffixIcon ??
-                              const RotatedBox(
-                                quarterTurns: -45,
-                                child: Icon(Icons.chevron_left, color: Color(0xFF757575), size: 20),
-                              ),
+                          Opacity(
+                            opacity: widget.isEnabled ? 1.0 : 0.5,
+                            child: widget.suffixIcon ??
+                                const RotatedBox(
+                                  quarterTurns: -45,
+                                  child: Icon(Icons.chevron_left, color: Color(0xFF757575), size: 20),
+                                ),
+                          ),
                         ],
                       ),
                     ),
